@@ -1,14 +1,13 @@
 name: "CI Pipeline"
 
 on:
-  # This workflow runs every naay mo push og code sa main/master na branch
-  push: 
-    branches: [main]
+  # This workflow runs every time you push code to main or master
+  push:
+    branches: [main, master]
 
-  # This workflow runs if every naay ni pull request na makig merge og branch sa main/master
-  #  ( main <- "yourBranch" )
+  # This workflow runs for pull requests targeting main or master
   pull_request:
-    branches: [main]
+    branches: [main, master]
 
 # Checklist like cpu scheduling murag steps ba onsa una ang ipa dagan like imo sa eh test, build dayun deploy kung walay errors
 jobs:
