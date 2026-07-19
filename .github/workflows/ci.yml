@@ -1,0 +1,42 @@
+name: "CI Pipeline"
+
+on:
+  # This workflow runs every naay mo push og code sa main/master na branch
+  push: 
+    branches: [main]
+
+  # This workflow runs if every naay ni pull request na makig merge og branch sa main/master
+  #  ( main <- "yourBranch" )
+  pull_request:
+    branches: [main]
+
+# Checklist like cpu scheduling murag steps ba onsa una ang ipa dagan like imo sa eh test, build dayun deploy kung walay errors
+jobs:
+  test:
+    # Purpose ani kay during workflow mo create og virtual machine sa github nya adto padaganon ang workflow 
+    runs-on: ubuntu-latest
+
+    steps:
+      # Kani mga names log names rani sia like indicator if unsa na nga steps ang currently nag dagan
+      - name: Check out the code
+
+      # Kaning uses actions naa rani sia sa github mura nig plugins  
+      # ang repo sa github iya i download para ma access sa virtual machine nga gi create sa github
+      # if wala ni siya ang virtual machine walay solod
+      uses: actions/checkout@v4
+
+      - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with: 
+        node-version: '22'
+
+      # TAKE NOTE: dapat naa ang package.json before install sa dependencies
+      # The reason why ngano 'run' kay para maka command ta sa virtual machine na terminal automatically by github
+      - name: Install Dependencies
+      run: npm ci 
+
+      - name: Lint tests
+      run: npm run lint
+
+      - name: Build
+      run: npm run build
