@@ -1,7 +1,7 @@
 name: "CI Pipeline"
 
 on:
-  # This workflow runs every time you push code to main or master
+  # This workflow runs every time you push code to main/master or depende nmo unsa na branch imo eh add sa array
   push:
     branches: [main, master]
 
